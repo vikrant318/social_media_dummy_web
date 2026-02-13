@@ -13,7 +13,7 @@ const Post = ({ post }) => {
                     <AiFillDelete />
                     </span>
                 </h5>
-                <p className="card-text">{post.content}</p>
+                <p className="card-text">{post.body}</p>
                 {post.image && (
                     <img src={post.image} className="img-fluid rounded mb-2" alt={post.title} />
                 )}

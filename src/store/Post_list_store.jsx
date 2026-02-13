@@ -4,6 +4,7 @@ import Post from "../components/Post";
 export const PostListContext = createContext({
     PostList: [],
     addPost: () => {},
+    addInitialPost: () => {},
     deletePost: () => {},
 });
 
@@ -15,6 +16,8 @@ const postListReducer = (currPostList, action) => {
         newPostList = newPostList.filter((post) => post.id !== action.payload.postId);
     } else if (action.type === "ADD_POST") {
         newPostList.unshift(action.payload);
+    } else if (action.type === "ADD_INITIAL_POSTS") {
+        newPostList = action.payload.posts;
     }
     return newPostList;
 };
@@ -22,7 +25,8 @@ const postListReducer = (currPostList, action) => {
 const PostListProvider = ({ children }) => {
 
     const [postList, dispatchPostList] = useReducer(
-        postListReducer, DEFULT_POST_LIST
+        postListReducer,
+        []
     );
 
     const addPost = (userId, postTitle, postContent, postDate, postTime, postImage, postReactions, postTags) => {
@@ -48,6 +52,16 @@ const PostListProvider = ({ children }) => {
         });
     };
 
+
+    const addInitialPost = (posts) => {
+        dispatchPostList({
+            type: "ADD_INITIAL_POSTS",
+            payload:{
+            posts,
+            }
+        });
+    };
+    
     const deletePost = (postId) => {
         dispatchPostList({
             type: "DELETE_POST",
@@ -59,46 +73,13 @@ const PostListProvider = ({ children }) => {
 
     return (
     <PostListContext.Provider value={
-        {postList, addPost,deletePost,}
+        {postList, addPost, addInitialPost, deletePost,}
     }>
         {children}
     </PostListContext.Provider>
     );
 };
 
-const DEFULT_POST_LIST = [
-    {
-        id: 1,
-        title: "My First Post",
-        content: "This is the content of my first post.",
-        reactions: {
-            totalViews: 100,
-            like: 10,
-            love: 5,
-            comment: 2,
-            share: 1,
-        },
-        userId: 'fgfeawf-1234-5678-90ab-cdef12345678',
-        date: "23/06/2024",
-        time: "10:30 AM",
-        tags: ['#firstpost', '#hello', '#react', '#socialmedia'],
-    },
-    {
-        id: 2,
-        title: "Another Day, Another Post",
-        content: "Just sharing some thoughts on this beautiful day.",
-        reactions: {
-            totalViews: 150,
-            like: 20,
-            love: 15,
-            comment: 5,
-            share: 3,
-        },
-        userId: 'fgfeawf-1234-5678-90ab-cdef12555678',
-        date: "24/06/2024",
-        time: "2:45 PM",
-        tags: ['#dailythoughts', '#beautifulday', '#react', '#socialmedia'],
-    }
-];
+
 
 export default PostListProvider;

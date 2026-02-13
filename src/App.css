@@ -76,3 +76,13 @@ body
   margin: 10% auto;
 
 }
+
+.welcome_message{
+  margin: 100px 0;
+}
+
+.spinner_container{
+  display: flex;
+  align-items: center;
+  height: 65vh;
+}
