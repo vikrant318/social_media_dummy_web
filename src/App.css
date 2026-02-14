@@ -5,6 +5,10 @@
   font-family: 'Poppins', sans-serif;
 }
 
+:root {
+  --header-height: 76px;
+}
+
 html,
 body
  {
@@ -86,3 +90,5 @@ body
   align-items: center;
   height: 65vh;
 }
+
+
