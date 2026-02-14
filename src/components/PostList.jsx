@@ -21,13 +21,22 @@ const PostList = () => {
             .then((response) => response.json())
             .then((data) => {
                 addInitialPost(data.posts);
-                setFetching(false);
+            })
+            .catch((error) => {
+                if (error.name !== "AbortError") {
+                    console.error("Failed to fetch posts:", error);
+                }
+            })
+            .finally(() => {
+                if (!signal.aborted) {
+                    setFetching(false);
+                }
             });
 
         return () => {
             controller.abort();
         };
-    }, []); // Empty dependency array to run only once on component mount
+    }, [addInitialPost]); // Runs on mount and handles abort cleanly
         
     
     

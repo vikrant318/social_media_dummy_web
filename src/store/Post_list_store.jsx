@@ -28,7 +28,7 @@ const PostListProvider = ({ children }) => {
         []
     );
 
-    const addPost = (userId, postTitle, postContent, postDate, postTime, postImage, postReactions, postTags) => {
+    const addPost = useCallback((userId, postTitle, postContent, postDate, postTime, postImage, postReactions, postTags) => {
         dispatchPostList({
             type: "ADD_POST",
             payload: {
@@ -49,17 +49,17 @@ const PostListProvider = ({ children }) => {
                 tags: postTags,
             }
         });
-    };
+    }, []);
 
 
-    const addInitialPost = (posts) => {
+    const addInitialPost = useCallback((posts) => {
         dispatchPostList({
             type: "ADD_INITIAL_POSTS",
             payload:{
             posts,
             }
         });
-    };
+    }, []);
     
     const deletePost = useCallback((postId) => {
         dispatchPostList({
