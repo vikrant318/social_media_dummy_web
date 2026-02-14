@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/social_media_dummy_web/',
+  base: '/social_media_dummy_app/',
   plugins: [react()],
   server: {
     port: 3000,

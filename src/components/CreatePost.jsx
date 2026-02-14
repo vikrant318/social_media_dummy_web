@@ -35,7 +35,26 @@ const CreatePost = () => {
         postReactionsElement.current.value = "";
         postTagsElement.current.value = "";
 
-        addPost(userId, postTitle, postContent, postDate, postTime, postImage, postReactions, postTags);
+        fetch(`https://dummyjson.com/posts/add`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                userId: userId,
+                title: postTitle,
+                body: postContent,
+                date: postDate,
+                time: postTime,
+                image: postImage,
+                reactions: postReactions,
+                tags: postTags,
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            addPost(data);
+        })
     };
 
     return (
