@@ -14,7 +14,7 @@ export default defineConfig({
      // cors: true,
       // Or to set up a proxy:
       // proxy: {
-      //   '/api': 'http://localhost:5000',
+      //   '/api': 'http://localhost:3000',
       // },
      // You can change this to any port you prefer
   },
