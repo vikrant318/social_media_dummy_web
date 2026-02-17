@@ -1,4 +1,5 @@
 import { createContext, useCallback, useEffect, useReducer, useState } from "react";
+import { fetchPosts } from "../api/postsApi";
 
 export const PostListContext = createContext({
     PostList: [],
@@ -97,8 +98,7 @@ const PostListProvider = ({ children }) => {
         const controller = new AbortController();
         const signal = controller.signal;
 
-        fetch("https://dummyjson.com/posts", { signal })
-            .then((response) => response.json())
+        fetchPosts({ signal })
             .then((data) => {
                 addInitialPost(data.posts);
             })

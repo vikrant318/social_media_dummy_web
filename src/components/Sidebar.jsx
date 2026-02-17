@@ -1,7 +1,15 @@
-const Sidebar = ({ selectedTab, setSelectedTab, isSidebarOpen, setIsSidebarOpen }) => {
+import { Link, NavLink } from "react-router-dom";
 
-    const handleTabClick = (tab) => {
-        setSelectedTab(tab);
+const navItems = [
+    { label: "Home", to: "/" },
+    { label: "Create Post", to: "/create-post" },
+    { label: "My Posts", to: "/my-posts" },
+    { label: "Friends", to: "/friends" },
+    { label: "Settings", to: "/settings" },
+];
+
+const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
+    const handleNavClick = () => {
         setIsSidebarOpen(false);
     };
 
@@ -13,47 +21,29 @@ const Sidebar = ({ selectedTab, setSelectedTab, isSidebarOpen, setIsSidebarOpen 
             </div>
             <hr />
             <ul className="nav nav-pills flex-column mb-auto">
-                <li className="nav-item" onClick={() => { handleTabClick("Home") }}>
-                    <a href="#" className={`nav-link ${selectedTab === "Home" ? "text-white active" : "text-white"}`} aria-current="page">
-                        <svg className="bi me-2" width="16" height="16"><use xlinkHref="#home"></use></svg>
-                        Home
-                    </a>
-                </li>
-                <li className="nav-item" onClick={() => { handleTabClick("Create Post") }}>
-                    <a href="#" className={`nav-link ${selectedTab === "Create Post" ? "text-white active" : "text-white"}`}>
-                        <svg className="bi me-2" width="16" height="16"><use xlinkHref="#speedometer2"></use></svg>
-                        Create Post
-                    </a>
-                </li>
-                <li className="nav-item" onClick={() => { handleTabClick("My Posts") }}>
-                    <a href="#" className={`nav-link ${selectedTab === "My Posts" ? "text-white active" : "text-white"}`}>
-                        <svg className="bi me-2" width="16" height="16"><use xlinkHref="#table"></use></svg>
-                        My Posts
-                    </a>
-                </li>
-                <li className="nav-item" onClick={() => { handleTabClick("Friends") }}>
-                    <a href="#" className={`nav-link ${selectedTab === "Friends" ? "text-white active" : "text-white"}`}>
-                        <svg className="bi me-2" width="16" height="16"><use xlinkHref="#grid"></use></svg>
-                        Friends
-                    </a>
-                </li>
-                <li className="nav-item" onClick={() => { handleTabClick("Settings") }}>
-                    <a href="#" className={`nav-link ${selectedTab === "Settings" ? "text-white active" : "text-white"}`}>
-                        <svg className="bi me-2" width="16" height="16"><use xlinkHref="#people-circle"></use></svg>
-                        Settings
-                    </a>
-                </li>
+                {navItems.map((item) => (
+                    <li className="nav-item" key={item.to}>
+                        <NavLink
+                            to={item.to}
+                            end={item.to === "/"}
+                            onClick={handleNavClick}
+                            className={({ isActive }) => `nav-link ${isActive ? "text-white active" : "text-white"}`}
+                        >
+                            {item.label}
+                        </NavLink>
+                    </li>
+                ))}
             </ul>
             <hr />
             <div className="dropdown">
-                <a href="#" className="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" width="32" height="32" className="rounded-circle me-2" alt="Profile" />
-                    <strong>mdo</strong>
-                </a>
+                <Link to="/settings" className="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://tse4.mm.bing.net/th/id/OIP.W3aNfKBxYVwiphPnIwW56QHaEo?pid=Api&P=0&h=180" width="32" height="32" className="rounded-circle me-2" alt="Profile" />
+                    <strong>Vikrant</strong>
+                </Link>
                 <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <li><a className="dropdown-item" href="#">New project...</a></li>
-                    <li><a className="dropdown-item" href="#">Settings</a></li>
-                    <li><a className="dropdown-item" href="#">Sign out</a></li>
+                    <li><Link className="dropdown-item" to="/new-project">New project...</Link></li>
+                    <li><Link className="dropdown-item" to="/settings">Settings</Link></li>
+                    <li><Link className="dropdown-item" to="/sign-out">Sign out</Link></li>
                 </ul>
             </div>
         </div>
